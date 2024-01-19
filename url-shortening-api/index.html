@@ -3,27 +3,60 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="style.css" rel="stylesheet" />
-    <link href="index.css" rel="stylesheet" />
-    <title>Shortly- url shortener</title>
+    <script
+      src="https://kit.fontawesome.com/dcd4357263.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="icon" type="image/png" sizes="32x32" href="../images/favicon-32x32.png">
+    <link href="./style.css" rel="stylesheet" />
+    <link href="./shortly.css" rel="stylesheet" />
+    <title>Shortly URL shortening API</title>
   </head>
   <body>
-    <div class="container">
-      <nav id="navbar">
-        <img src="../images/logo.svg" alt="logo" id="img-logo" />
-        <ul class="links">
+    <nav class="navbar">
+      <div class="nav-container">
+        <div class="logo-container">
+          <img src="../images/logo.svg" alt="shortly-logo" id="logo" />
+          <ul id="links">
+            <li><a href="#">Features</a></li>
+            <li><a href="#">Pricing</a></li>
+            <li><a href="#">Resources</a></li>
+          </ul>
+        </div>
+        <ul id="login-link">
+          <li><a href="#">Login</a></li>
+          <li>
+            <button id="signup-btn">
+              <a href="#" id="txt-col">Sign Up</a>
+            </button>
+          </li>
+        </ul>
+        <button id="toggle-btn" onclick="toggleModal()">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </nav>
+    <!--navbar modal-->
+    <div class="modal" id="nav-modal">
+      <div class="modal-content">
+        <ul id="modal-links">
           <li><a href="#">Features</a></li>
           <li><a href="#">Pricing</a></li>
           <li><a href="#">Resources</a></li>
         </ul>
-        <div class="login-links">
-          <a href="#" id="login-link">Login</a>
-          <button id="login-btn">
-            <a href="#" id="txt-col">Sign Up</a>
-          </button>
-        </div>
-      </nav>
-      <div id="hero-container">
+        <hr />
+        <ul id="modal-login-link">
+          <li><a href="#">Login</a></li>
+          <li>
+            <button id="signup-btn">
+              <a href="#" id="txt-col">Sign Up</a>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <header class="hero">
+      <div class="hero-container">
         <div id="section-one">
           <h2 id="heading">More than just shorter links</h2>
           <p id="hero-para">
@@ -32,56 +65,106 @@
           </p>
           <button id="get-started-btn">Get Started</button>
         </div>
-        <div id="section-two">
-          <img
-            src="../images/illustration-working.svg"
-            alt="working-illustration"
-          />
-        </div>
-      </div>
-      <div id="shorten-container">
-        <input
-          type="text"
-          name="shorten-url"
-          id="url"
-          placeholder="Shorten a link here..."
+        <img
+          src="../images/illustration-working.svg"
+          alt="working-illustration"
+          id="hero-img"
         />
-        <button id="shorten-btn">Shorten It!</button>
       </div>
-      <div id="statistic-container">
-        <div id="content-para">
-          <h1 id="stat-heading">Advanced Statistics</h1>
-          <p id="stat-para">
-            Track how your links are performing across te web with our advanced
-            statistics dashboard.
-          </p>
-        </div>
+    </header>
+    <form id="shorten-container">
+      <input
+        type="text"
+        name="shorten-url"
+        id="url"
+        placeholder="Shorten a link here..."
+      />
+      <button id="shorten-btn" type="submit">Shorten It!</button>
+      <div id="error-message"></div>
+    </form>
+
+    <div id="statistic-container">
+      <div id="shortened-url">
+        <p id="urltext"></p>
+        <button id="copy-btn">Copy</button>
       </div>
-      <div id="stat-container">
-        <div class="stat-content-container">
-            <div class="img-circle">
-          <img src="../images/icon-brand-recognition.svg" alt="brand-icon" class="icon-img"/>
-        </div>
-          <h4 class="stat-container-heading">Brand Recognition</h4>
-          <p class="stat-container-para">Boost your brand recognition with each click.Generic links don't mean a thing.Branded links helps instill confidence in your content.</p>
-        </div>
-        <div class="stat-content-container">
-          <div class="img-circle">
-            <img src="../images/icon-detailed-records.svg" alt="brand-icon" class="icon-img"/>
-          </div>  <h4 class="stat-container-heading">Detailed Records</h4>
-         <p class="stat-container-para">Boost your brand recognition with each click.Generic links don't mean a thing.Branded links helps instill confidence in your content.</p>
-        </div>
-        <div class="stat-content-container">
-          <div class="img-circle">
-            <img src="../images/icon-fully-customizable.svg" alt="brand-icon" class="icon-img"/>
-          </div> <h4 class="stat-container-heading">Fully Customizable</h4>
-         <p class="stat-container-para">Boost your brand recognition with each click.Generic links don't mean a thing.Branded links helps instill confidence in your content.</p>
-        </div>
-     </div>
-     <div id="boost-container">
-        <h3>Bost your links today</h3>
-        <button>Get Started</button>
-     </div>
+      <div id="content-para">
+        <h1 id="stat-heading">Advanced Statistics</h1>
+        <p id="stat-para">
+          Track how your links are performing across te web with our advanced
+          statistics dashboard.
+        </p>
+      </div>
+      <section class="stat-box-container">
+        <div class="stat-line"></div>
+      <article class="stat-box">
+        <img
+          src="../images/icon-brand-recognition.svg"
+          alt="brand-icon"
+          class="icon-img"
+        />
+        <h4 class="stat-container-heading">Brand Recognition</h4>
+        <p class="stat-container-para">
+          Boost your brand recognition with each click.Generic links don't mean
+          a thing.Branded links helps instill confidence in your content.
+        </p>
+      </article>
+      <article class="stat-box">
+        <img src="../images/icon-detailed-records.svg" alt="brand-icon" class="icon-img"/>
+        <h4 class="stat-container-heading"> Detailed Records</h4>
+        <p class="stat-container-para">
+          Gain insights into who is clicking your links. Knowing when and where people engage with your content helps inform better decisions.
+           </p>
+      </article>
+      <article class="stat-box">
+        <img src="../images/icon-fully-customizable.svg" alt="brand-icon" class="icon-img"/>
+        <h4 class="stat-container-heading"> Fully Customizable</h4>
+        <p class="stat-container-para">
+          Improve brand awareness and content discoverability through customizable links, supercharging audience engagement.</p>
+      </article>
     </div>
+</div>
+<section id="boost-container">
+    <h2 id="boost-heading">Boost your links today</h2>
+    <button id="boost-btn">Get Started</button>
+ </section>
+ <footer class="footer">
+  <div class="footer-container">
+    <img src="../images/logo.svg" alt="shortly-logo" id="footer-logo" />
+    <ul class="footer-section-container">         
+      <li><h4 class="footer-heading">Features</h4></li>                 
+        <li><a href='#'>Link Shortening</a></li>
+        <li><a href='#'>Branded Links</a></li>
+        <li><a href='#'>Analytics</a></li>
+    </ul>
+    <ul class="footer-section-container">         
+      <li><h4 class="footer-heading">Resources</h4></li>                 
+        <li><a href='#'>Blog</a></li>
+        <li><a href='#'>Developers</a></li>
+        <li><a href='#'>Support</a></li>
+    </ul>
+    <ul class="footer-section-container">         
+      <li><h4 class="footer-heading">Company</h4></li>                 
+        <li><a href='#'>About</a></li>
+        <li><a href='#'>Our Team</a></li>
+        <li><a href='#'>Careers</a></li>
+        <li><a href='#'>Contact</a></li>
+    </ul>
+    <ul id="social-links">                        
+        <li><a href='#'><img src="../images/icon-facebook.svg" alt="facebook-icon"></a></li>
+        <li><a href='#'><img src="../images/icon-instagram.svg" alt="instagram-icon"></a></li>
+        <li><a href='#'><img src="../images/icon-pinterest.svg" alt="pinterest-icon"></a></a></li>
+        <li><a href='#'><img src="../images/icon-twitter.svg" alt="twitter-icon"></a></a></li>
+      </ul>
+</div>
+ </footer>
+ <div style="text-align: center;background-color: darkgrey;">
+   Coded by <a href="#" style="text-decoration: none;color:#000">Noori</a>.
+</div>
+    <script src="./modal.js"></script>
+    <!-- <script src="./dynamictop.js"></script> -->
+<script type="module" src="./config.js"></script>
+    <!-- <script defer type="module" src="./submiterrmsg.js"  ></script> -->
+    <script defer  src="./submit.js"  ></script>
   </body>
 </html>
